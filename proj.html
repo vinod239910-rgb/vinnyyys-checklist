@@ -1,0 +1,1048 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Interactive Full-Stack Development Roadmap</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+        
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 16px;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
+        }
+        
+        .header {
+            background: linear-gradient(135deg, #2c3e50 0%, #34495e 100%);
+            color: white;
+            padding: 40px;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .header::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: repeating-linear-gradient(
+                45deg,
+                transparent,
+                transparent 10px,
+                rgba(255,255,255,0.05) 10px,
+                rgba(255,255,255,0.05) 20px
+            );
+            animation: slide 20s linear infinite;
+        }
+        
+        @keyframes slide {
+            0% { transform: translateX(-50px); }
+            100% { transform: translateX(50px); }
+        }
+        
+        .header h1 {
+            font-size: 3rem;
+            margin-bottom: 15px;
+            position: relative;
+            z-index: 1;
+        }
+        
+        .header p {
+            font-size: 1.2rem;
+            opacity: 0.9;
+            position: relative;
+            z-index: 1;
+        }
+        
+        .controls {
+            padding: 25px;
+            background: #f8f9fa;
+            border-bottom: 1px solid #e9ecef;
+            display: flex;
+            gap: 15px;
+            flex-wrap: wrap;
+            align-items: center;
+            justify-content: space-between;
+        }
+        
+        .btn-group {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+        
+        .btn {
+            padding: 12px 24px;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 14px;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            text-decoration: none;
+            color: white;
+        }
+        
+        .btn-primary {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        }
+        
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(102, 126, 234, 0.4);
+        }
+        
+        .btn-secondary {
+            background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+        }
+        
+        .btn-secondary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(245, 87, 108, 0.4);
+        }
+        
+        .btn-success {
+            background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+        }
+        
+        .btn-success:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(79, 172, 254, 0.4);
+        }
+        
+        .progress-overview {
+            padding: 30px;
+            background: linear-gradient(135deg, #e3f2fd 0%, #bbdefb 100%);
+            border-left: 5px solid #2196f3;
+        }
+        
+        .progress-stats {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+            margin-bottom: 20px;
+        }
+        
+        .stat-card {
+            background: white;
+            padding: 20px;
+            border-radius: 12px;
+            text-align: center;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+        
+        .stat-number {
+            font-size: 2.5rem;
+            font-weight: bold;
+            color: #2196f3;
+        }
+        
+        .stat-label {
+            color: #666;
+            font-size: 0.9rem;
+            margin-top: 5px;
+        }
+        
+        .progress-bar {
+            width: 100%;
+            height: 30px;
+            background: rgba(255, 255, 255, 0.5);
+            border-radius: 15px;
+            overflow: hidden;
+            margin: 20px 0;
+            box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+        
+        .progress-fill {
+            height: 100%;
+            background: linear-gradient(90deg, #4caf50, #8bc34a);
+            transition: width 0.8s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: bold;
+            font-size: 14px;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .progress-fill::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.3), transparent);
+            animation: shimmer 2s infinite;
+        }
+        
+        @keyframes shimmer {
+            0% { transform: translateX(-100%); }
+            100% { transform: translateX(100%); }
+        }
+        
+        .week-section {
+            margin: 30px 0;
+            border: 1px solid #e0e0e0;
+            border-radius: 12px;
+            overflow: hidden;
+            background: white;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+        }
+        
+        .week-header {
+            background: linear-gradient(135deg, #2c3e50 0%, #34495e 100%);
+            color: white;
+            padding: 20px;
+            font-size: 1.3rem;
+            font-weight: bold;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .week-header:hover {
+            background: linear-gradient(135deg, #34495e 0%, #2c3e50 100%);
+        }
+        
+        .week-progress {
+            font-size: 0.9rem;
+            font-weight: normal;
+            background: rgba(255, 255, 255, 0.2);
+            padding: 5px 15px;
+            border-radius: 20px;
+        }
+        
+        .week-content {
+            display: none;
+            padding: 20px;
+        }
+        
+        .week-content.active {
+            display: block;
+            animation: fadeIn 0.5s ease;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(-10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            background: white;
+            border-radius: 8px;
+            overflow: hidden;
+        }
+        
+        th, td {
+            padding: 15px;
+            text-align: left;
+            border-bottom: 1px solid #e0e0e0;
+            vertical-align: top;
+        }
+        
+        th {
+            background: linear-gradient(135deg, #f5f5f5 0%, #e8e8e8 100%);
+            font-weight: 600;
+            color: #555;
+            position: sticky;
+            top: 0;
+            z-index: 10;
+        }
+        
+        tr:hover {
+            background: #f9f9f9;
+            transform: scale(1.01);
+            transition: transform 0.2s ease;
+        }
+        
+        .checkbox-cell {
+            text-align: center;
+            width: 60px;
+        }
+        
+        .checkbox {
+            width: 24px;
+            height: 24px;
+            cursor: pointer;
+            accent-color: #4caf50;
+            transition: transform 0.2s ease;
+        }
+        
+        .checkbox:hover {
+            transform: scale(1.2);
+        }
+        
+        .completed {
+            background: linear-gradient(135deg, #e8f5e9 0%, #c8e6c9 100%) !important;
+            opacity: 0.9;
+        }
+        
+        .week-cell {
+            font-weight: 700;
+            color: #1976d2;
+            width: 80px;
+            font-size: 1.1rem;
+        }
+        
+        .focus-cell {
+            font-weight: 600;
+            color: #d32f2f;
+            background: linear-gradient(135deg, #ffebee 0%, #ffcdd2 100%);
+            border-radius: 8px;
+        }
+        
+        .goals-cell {
+            color: #333;
+            line-height: 1.8;
+        }
+        
+        .goals-cell ul {
+            margin: 10px 0;
+            padding-left: 20px;
+        }
+        
+        .goals-cell li {
+            margin: 5px 0;
+            position: relative;
+        }
+        
+        .goals-cell li::before {
+            content: '▶';
+            color: #4caf50;
+            font-weight: bold;
+            position: absolute;
+            left: -15px;
+        }
+        
+        .resources-cell a {
+            color: #1976d2;
+            text-decoration: none;
+            display: inline-block;
+            padding: 6px 12px;
+            background: linear-gradient(135deg, #e3f2fd 0%, #bbdefb 100%);
+            border-radius: 20px;
+            font-size: 0.85rem;
+            margin: 3px;
+            transition: all 0.3s ease;
+            border: 1px solid #90caf9;
+        }
+        
+        .resources-cell a:hover {
+            background: linear-gradient(135deg, #bbdefb 0%, #90caf9 100%);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(25, 118, 210, 0.3);
+        }
+        
+        .projects-section {
+            margin: 40px 0;
+            padding: 30px;
+            background: linear-gradient(135deg, #fff3e0 0%, #ffe0b2 100%);
+            border-radius: 12px;
+            border-left: 5px solid #ff9800;
+        }
+        
+        .projects-header {
+            font-size: 2rem;
+            color: #e65100;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+        
+        .project-card {
+            background: white;
+            border-radius: 12px;
+            padding: 20px;
+            margin: 15px 0;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s ease;
+            border-left: 4px solid #ff9800;
+        }
+        
+        .project-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 15px rgba(0, 0, 0, 0.15);
+        }
+        
+        .project-title {
+            font-size: 1.3rem;
+            font-weight: bold;
+            color: #bf360c;
+            margin-bottom: 10px;
+        }
+        
+        .project-tech {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            margin: 10px 0;
+        }
+        
+        .tech-tag {
+            background: linear-gradient(135deg, #ffcc02 0%, #ff9800 100%);
+            color: white;
+            padding: 4px 12px;
+            border-radius: 15px;
+            font-size: 0.8rem;
+            font-weight: 600;
+        }
+        
+        .milestone-section {
+            margin: 30px 0;
+            padding: 25px;
+            background: linear-gradient(135deg, #f3e5f5 0%, #e1bee7 100%);
+            border-radius: 12px;
+            border-left: 5px solid #9c27b0;
+        }
+        
+        .milestone-header {
+            font-size: 1.5rem;
+            color: #6a1b9a;
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .milestone-item {
+            background: white;
+            padding: 15px;
+            margin: 10px 0;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+        
+        .milestone-checkbox {
+            width: 20px;
+            height: 20px;
+            accent-color: #9c27b0;
+        }
+        
+        @media print {
+            body {
+                background: white;
+                padding: 0;
+            }
+            
+            .controls, .progress-overview {
+                display: none;
+            }
+            
+            .week-content {
+                display: block !important;
+            }
+            
+            .container {
+                box-shadow: none;
+                border-radius: 0;
+            }
+        }
+        
+        @media (max-width: 768px) {
+            .header h1 {
+                font-size: 2rem;
+            }
+            
+            .controls {
+                flex-direction: column;
+                align-items: stretch;
+            }
+            
+            .btn-group {
+                justify-content: center;
+            }
+            
+            table {
+                font-size: 0.9rem;
+            }
+            
+            th, td {
+                padding: 10px;
+            }
+            
+            .resources-cell a {
+                display: block;
+                margin: 2px 0;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>🚀 Interactive Full-Stack Development Roadmap</h1>
+            <p>Your 6-Month Journey to Becoming a Full-Stack Developer</p>
+        </div>
+        
+        <div class="controls">
+            <div class="btn-group">
+                <button class="btn btn-primary" onclick="saveProgress()">
+                    💾 Save Progress
+                </button>
+                <button class="btn btn-secondary" onclick="resetProgress()">
+                    🔄 Reset All
+                </button>
+                <button class="btn btn-success" onclick="window.print()">
+                    🖨️ Print Roadmap
+                </button>
+            </div>
+            <span id="save-status" style="color: #4caf50; font-weight: 500;"></span>
+        </div>
+        
+        <div class="progress-overview">
+            <div class="progress-stats">
+                <div class="stat-card">
+                    <div class="stat-number" id="total-weeks">26</div>
+                    <div class="stat-label">Total Weeks</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number" id="completed-weeks">0</div>
+                    <div class="stat-label">Weeks Completed</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number" id="completed-tasks">0</div>
+                    <div class="stat-label">Tasks Completed</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number" id="projects-completed">0</div>
+                    <div class="stat-label">Projects Built</div>
+                </div>
+            </div>
+            <h3>📊 Overall Progress</h3>
+            <div class="progress-bar">
+                <div class="progress-fill" id="overall-progress">0%</div>
+            </div>
+        </div>
+        
+        <div id="roadmap-content"></div>
+        
+        <div class="projects-section">
+            <h2 class="projects-header">🎯 Project Portfolio</h2>
+            <div id="projects-list"></div>
+        </div>
+        
+        <div class="milestone-section">
+            <h3 class="milestone-header">🏆 Achievement Milestones</h3>
+            <div id="milestones-list"></div>
+        </div>
+    </div>
+
+    <script>
+        const roadmapData = [
+            {
+                week: "1",
+                focus: "HTML, CSS, and DOM",
+                goals: "Understand HTML structure, forms, and semantics.<br>Learn CSS basics and responsive design.<br>Explore the DOM and JavaScript integration.",
+                resources: ["Build a static webpage", "Add interactivity with DOM manipulation"],
+                project: "Static Portfolio Page"
+            },
+            {
+                week: "2",
+                focus: "JavaScript Basics",
+                goals: "Master variables, loops, functions, and arrays.<br>Explore ES6 features like `let`, `const`, and arrow functions.",
+                resources: ["Create a to-do list app", "MDN Web Docs"],
+                project: "To-Do List App"
+            },
+            {
+                week: "3",
+                focus: "Node.js Basics",
+                goals: "Understand the JavaScript runtime environment.<br>Write HTTP servers.<br>Explore Node.js vs other runtimes (e.g., Bun, Cloudflare).",
+                resources: ["Build a simple Node.js server", "Compare runtimes"],
+                project: "Basic Node.js Server"
+            },
+            {
+                week: "4",
+                focus: "HTTP Servers & Express",
+                goals: "Learn HTTP basics, request-response cycle.<br>Create REST APIs using Node.js and Express.",
+                resources: ["Build a REST API for a blog platform"],
+                project: "Blog Platform API"
+            },
+            {
+                week: "5",
+                focus: "NoSQL Databases (MongoDB)",
+                goals: "Understand NoSQL concepts.<br>Perform CRUD operations with MongoDB.<br>Explore schema design and indexing.",
+                resources: ["Build a database for a 'Bookshelf App' using MongoDB"],
+                project: "Bookshelf App Backend"
+            },
+            {
+                week: "6",
+                focus: "SQL Basics",
+                goals: "Learn SQL syntax.<br>Perform CRUD operations with SQL databases (e.g., MySQL or PostgreSQL).",
+                resources: ["Build a simple database for user data"],
+                project: "User Management System"
+            },
+            {
+                week: "7",
+                focus: "ORMs (Sequelize/Mongoose)",
+                goals: "Learn about Object-Relational Mapping.<br>Use Sequelize for SQL and Mongoose for MongoDB.<br>Understand model relationships.",
+                resources: ["Build a project that integrates Sequelize or Mongoose"],
+                project: "ORM Integration Project"
+            },
+            {
+                week: "8",
+                focus: "React Basics",
+                goals: "Learn React fundamentals: JSX, components, props, and state.<br>Use React Developer Tools.",
+                resources: ["Build a task tracker app"],
+                project: "React Task Tracker"
+            },
+            {
+                week: "9",
+                focus: "Styling React Apps",
+                goals: "Style React apps using Tailwind CSS or styled-components.<br>Learn responsive design in React.",
+                resources: ["Restyle your task tracker app", "Tailwind CSS Docs"],
+                project: "Styled Task Tracker"
+            },
+            {
+                week: "10",
+                focus: "TypeScript Basics",
+                goals: "Learn TypeScript syntax and static typing.<br>Integrate TypeScript with React.<br>Explore type declarations for APIs and models.",
+                resources: ["Refactor the task tracker app to TypeScript"],
+                project: "TypeScript Task Tracker"
+            },
+            {
+                week: "11",
+                focus: "Next.js Basics",
+                goals: "Learn server-side rendering (SSR) and static site generation (SSG).<br>Build SEO-friendly apps.",
+                resources: ["Build a blog site using Next.js"],
+                project: "Next.js Blog"
+            },
+            {
+                week: "12",
+                focus: "Monorepos and Turborepo",
+                goals: "Understand monorepos and how to organize multiple projects.<br>Use Turborepo for performance optimization.",
+                resources: ["Create a monorepo for shared libraries in React and Node.js"],
+                project: "Monorepo Setup"
+            },
+            {
+                week: "13",
+                focus: "Websockets & RTC Basics",
+                goals: "Understand real-time communication with Websockets.<br>Learn RTC for video/audio communication.",
+                resources: ["Build a chat app with Websockets", "Explore RTC for a video conferencing feature"],
+                project: "Real-time Chat App"
+            },
+            {
+                week: "14",
+                focus: "Testing Basics",
+                goals: "Learn unit and integration testing.<br>Use Jest and React Testing Library.<br>Test APIs and frontend components.",
+                resources: ["Write tests for your REST API and React components"],
+                project: "Tested Application"
+            },
+            {
+                week: "15",
+                focus: "Authentication & JWT",
+                goals: "Understand secure user authentication.<br>Use JWT and cookies for session management.",
+                resources: ["Add login/logout functionality to your blog platform"],
+                project: "Authenticated Blog Platform"
+            },
+            {
+                week: "16",
+                focus: "Database Optimization",
+                goals: "Explore database optimization techniques (e.g., indexing, query optimization).",
+                resources: ["Optimize queries for existing projects"],
+                project: "Optimized Database Queries"
+            },
+            {
+                week: "17",
+                focus: "Advanced Backend Concepts",
+                goals: "Dive deeper into asynchronous programming and error handling.<br>Learn middleware chaining.<br>Implement complex backend logic.",
+                resources: ["Refactor APIs with advanced features like rate limiting and complex queries"],
+                project: "Advanced API with Rate Limiting"
+            },
+            {
+                week: "18",
+                focus: "Ref, Populate, and API Design",
+                goals: "Use `ref` and `populate` in Mongoose for relationships.<br>Learn API versioning and documentation (Swagger).",
+                resources: ["Add relationships to your MongoDB models"],
+                project: "API with Relationships & Documentation"
+            },
+            {
+                week: "19",
+                focus: "Advanced Frontend Features",
+                goals: "Learn dynamic form handling, animations, and accessibility features in React.<br>Explore Framer Motion for animations.",
+                resources: ["Add form validation and animations to the task tracker"],
+                project: "Animated & Accessible React App"
+            },
+            {
+                week: "20",
+                focus: "Project Planning",
+                goals: "Plan a capstone project.<br>Define features, create high-level (HLD) and low-level designs (LLD).",
+                resources: ["Create a project blueprint (e.g., e-commerce app or task tracker)"],
+                project: "Capstone Project Blueprint"
+            },
+            {
+                week: "21",
+                focus: "Capstone Backend Development",
+                goals: "Build the backend for your capstone project.<br>Implement CRUD APIs, authentication, and error handling.",
+                resources: ["Set up Express.js, MongoDB, and authentication for the project"],
+                project: "Capstone Backend"
+            },
+            {
+                week: "22",
+                focus: "Capstone Frontend Development",
+                goals: "Build the frontend for your capstone project.<br>Use React or Next.js for user interface.<br>Style the app with Tailwind CSS.",
+                resources: ["Integrate the backend with the frontend"],
+                project: "Capstone Frontend"
+            },
+            {
+                week: "23",
+                focus: "Real-Time Features in Capstone",
+                goals: "Add real-time features using Websockets or RTC.<br>Implement live chat or real-time notifications.",
+                resources: ["Enhance the capstone app with real-time functionality"],
+                project: "Real-time Capstone Features"
+            },
+            {
+                week: "24",
+                focus: "Testing and Deployment",
+                goals: "Test the app thoroughly.<br>Deploy the app to a cloud platform (e.g., Vercel, Heroku).",
+                resources: ["Write unit and integration tests", "Deploy the capstone project"],
+                project: "Deployed & Tested Application"
+            },
+            {
+                week: "25",
+                focus: "Linting and Performance Optimization",
+                goals: "Set up linting tools (e.g., ESLint, Prettier).<br>Optimize frontend and backend performance.<br>Learn about caching strategies.",
+                resources: ["Add ESLint and Prettier to your projects", "Optimize API response times and frontend load times"],
+                project: "Optimized & Production-Ready App"
+            },
+            {
+                week: "26",
+                focus: "Final Enhancements & Portfolio",
+                goals: "Polish the capstone project.<br>Add the project to a portfolio site.<br>Prepare for interviews with projects and a resume.",
+                resources: ["Create a personal portfolio using Next.js", "Showcase all 10 projects in your portfolio"],
+                project: "Professional Portfolio"
+            }
+        ];
+
+        const projectsData = [
+            {
+                name: "Task Tracker App",
+                description: "A React app to track daily tasks with add, edit, and delete functionality.",
+                steps: "1. Set up React.<br>2. Build a task list UI.<br>3. Add state management with React hooks.<br>4. Store tasks locally.",
+                tech: ["React", "CSS", "JavaScript"],
+                week: 2
+            },
+            {
+                name: "Bookshelf App",
+                description: "A MongoDB-powered app to manage a collection of books with search and CRUD operations.",
+                steps: "1. Set up MongoDB.<br>2. Create Express APIs for CRUD operations.<br>3. Connect backend to a React frontend.",
+                tech: ["Node.js", "Express", "MongoDB", "React"],
+                week: 5
+            },
+            {
+                name: "Blog Platform",
+                description: "A platform for users to post, edit, and delete blog entries. Includes JWT-based authentication.",
+                steps: "1. Build REST APIs with Express.<br>2. Use MongoDB or PostgreSQL for storing blogs.<br>3. Add authentication.",
+                tech: ["Node.js", "MongoDB/PostgreSQL", "React", "JWT"],
+                week: 15
+            },
+            {
+                name: "Chat App",
+                description: "Real-time chat app using Websockets with user authentication.",
+                steps: "1. Set up Websockets on the backend.<br>2. Implement chat UI in React.<br>3. Add JWT authentication.",
+                tech: ["Node.js", "Websockets", "React", "JWT"],
+                week: 13
+            },
+            {
+                name: "E-Commerce Store",
+                description: "A store with product listings, a cart system, and checkout functionality.",
+                steps: "1. Design product APIs.<br>2. Add cart logic in React.<br>3. Integrate Razorpay/Stripe for payments.",
+                tech: ["React", "Node.js", "MongoDB", "Payment APIs"],
+                week: 20
+            },
+            {
+                name: "Portfolio Website",
+                description: "A personal portfolio to showcase projects and skills.",
+                steps: "1. Use Next.js for SSR.<br>2. Style with Tailwind CSS.<br>3. Add portfolio content dynamically using JSON.",
+                tech: ["Next.js", "Tailwind CSS"],
+                week: 11
+            },
+            {
+                name: "Expense Tracker",
+                description: "A tool to track income and expenses with visualizations.",
+                steps: "1. Create React components for transactions.<br>2. Store data in MongoDB.<br>3. Visualize data using Chart.js.",
+                tech: ["React", "MongoDB", "Chart.js"],
+                week: 9
+            },
+            {
+                name: "Online Classroom Platform",
+                description: "A platform for faculty to share documents, conduct live sessions, and create assignments.",
+                steps: "1. Build backend with Express.<br>2. Implement user roles.<br>3. Add WebRTC for live classes.",
+                tech: ["Node.js", "WebRTC", "React"],
+                week: 23
+            },
+            {
+                name: "Video Conferencing App",
+                description: "A basic conferencing app using WebRTC for real-time communication.",
+                steps: "1. Set up WebRTC APIs.<br>2. Build React frontend.<br>3. Manage connections using signaling servers.",
+                tech: ["WebRTC", "React"],
+                week: 13
+            },
+            {
+                name: "Capstone E-Commerce App",
+                description: "A fully-featured app with real-time notifications, authentication, and performance optimization.",
+                steps: "1. Plan HLD and LLD.<br>2. Develop backend APIs.<br>3. Add Websocket-based notifications.<br>4. Deploy on the cloud.",
+                tech: ["Node.js", "React", "MongoDB", "Websockets"],
+                week: 26
+            }
+        ];
+
+        const milestonesData = [
+            { id: "html-css", text: "✅ Completed HTML/CSS Basics (Week 1)" },
+            { id: "javascript", text: "✅ Mastered JavaScript Fundamentals (Week 2)" },
+            { id: "nodejs", text: "✅ Built First Node.js Server (Week 3)" },
+            { id: "database", text: "✅ Integrated Database (MongoDB/SQL) (Week 5-6)" },
+            { id: "react", text: "✅ Created First React App (Week 8)" },
+            { id: "fullstack", text: "✅ Built Full-Stack Application (Week 15)" },
+            { id: "typescript", text: "✅ Implemented TypeScript (Week 10)" },
+            { id: "nextjs", text: "✅ Deployed Next.js Application (Week 11)" },
+            { id: "realtime", text: "✅ Added Real-time Features (Week 13)" },
+            { id: "testing", text: "✅ Wrote Comprehensive Tests (Week 14)" },
+            { id: "deployment", text: "✅ Deployed Application to Cloud (Week 24)" },
+            { id: "portfolio", text: "✅ Created Professional Portfolio (Week 26)" }
+        ];
+
+        let progress = JSON.parse(localStorage.getItem('fullstackRoadmapProgress')) || {};
+        let projectProgress = JSON.parse(localStorage.getItem('fullstackProjectProgress')) || {};
+        let milestoneProgress = JSON.parse(localStorage.getItem('fullstackMilestoneProgress')) || {};
+
+        function createRoadmap() {
+            const container = document.getElementById('roadmap-content');
+            container.innerHTML = '';
+            
+            // Group weeks by month (approximately 4 weeks per month)
+            const months = [];
+            for (let i = 0; i < roadmapData.length; i += 4) {
+                months.push(roadmapData.slice(i, i + 4));
+            }
+            
+            months.forEach((month, monthIndex) => {
+                const monthSection = document.createElement('div');
+                monthSection.className = 'week-section';
+                
+                const monthProgress = calculateMonthProgress(month);
+                const monthNames = ["Month 1", "Month 2", "Month 3", "Month 4", "Month 5", "Month 6"];
+                
+                monthSection.innerHTML = `
+                    <div class="week-header" onclick="toggleMonth(${monthIndex})">
+                        📅 ${monthNames[monthIndex]} (Weeks ${month[0].week}-${month[month.length-1].week})
+                        <span class="week-progress">${monthProgress.percentage}% Complete</span>
+                    </div>
+                    <div class="week-content ${monthIndex === 0 ? 'active' : ''}" id="month-${monthIndex}">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th class="checkbox-cell">✓</th>
+                                    <th>Week</th>
+                                    <th>Focus Area</th>
+                                    <th>Goals and Skills</th>
+                                    <th>Resources/Tasks</th>
+                                    <th>Project</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                ${month.map((week, weekIndex) => {
+                                    const weekId = `week-${week.week}`;
+                                    const isCompleted = progress[weekId] || false;
+                                    
+                                    return `
+                                        <tr class="${isCompleted ? 'completed' : ''}" id="row-${weekId}">
+                                            <td class="checkbox-cell">
+                                                <input type="checkbox" class="checkbox" 
+                                                       ${isCompleted ? 'checked' : ''} 
+                                                       onchange="toggleWeek('${weekId}')">
+                                            </td>
+                                            <td class="week-cell">Week ${week.week}</td>
+                                            <td class="focus-cell">${week.focus}</td>
+                                            <td class="goals-cell">${week.goals}</td>
+                                            <td class="resources-cell">
+                                                ${week.resources.map(resource => 
+                                                    `<a href="#" onclick="alert('Resource: ${resource}')">${resource}</a>`
+                                                ).join('')}
+                                            </td>
+                                            <td class="project-cell">
+                                                <strong>${week.project}</strong>
+                                            </td>
+                                        </tr>
+                                    `;
+                                }).join('')}
+                            </tbody>
+                        </table>
+                    </div>
+                `;
+                
+                container.appendChild(monthSection);
+            });
+            
+            createProjectsList();
+            createMilestonesList();
+            updateOverallProgress();
+        }
+
+        function createProjectsList() {
+            const container = document.getElementById('projects-list');
+            container.innerHTML = projectsData.map((project, index) => {
+                const projectId = `project-${index}`;
+                const isCompleted = projectProgress[projectId] || false;
+                
+                return `
+                    <div class="project-card ${isCompleted ? 'completed' : ''}">
+                        <div style="display: flex; justify-content: space-between; align-items: center;">
+                            <h4 class="project-title">${project.name}</h4>
+                            <input type="checkbox" class="checkbox" 
+                                   ${isCompleted ? 'checked' : ''} 
+                                   onchange="toggleProject('${projectId}')">
+                        </div>
+                        <p>${project.description}</p>
+                        <div class="project-tech">
+                            ${project.tech.map(tech => `<span class="tech-tag">${tech}</span>`).join('')}
+                        </div>
+                        <div style="margin-top: 15px; padding: 10px; background: #f5f5f5; border-radius: 8px;">
+                            <strong>Steps:</strong><br>
+                            <div style="font-size: 0.9rem; margin-top: 5px;">${project.steps}</div>
+                        </div>
+                    </div>
+                `;
+            }).join('');
+        }
+
+        function createMilestonesList() {
+            const container = document.getElementById('milestones-list');
+            container.innerHTML = milestonesData.map(milestone => {
+                const isCompleted = milestoneProgress[milestone.id] || false;
+                
+                return `
+                    <div class="milestone-item">
+                        <input type="checkbox" class="milestone-checkbox" 
+                               ${isCompleted ? 'checked' : ''} 
+                               onchange="toggleMilestone('${milestone.id}')">
+                        <span style="${isCompleted ? 'text-decoration: line-through; opacity: 0.7;' : ''}">${milestone.text}</span>
+                    </div>
+                `;
+            }).join('');
+        }
+
+        function toggleMonth(monthIndex) {
+            const content = document.getElementById(`month-${monthIndex}`);
+            content.classList.toggle('active');
+        }
+
+        function toggleWeek(weekId) {
+            progress[weekId] = !progress[weekId];
+            const row = document.getElementById(`row-${weekId}`);
+            row.classList.toggle('completed', progress[weekId]);
+            saveProgress();
+            updateOverallProgress();
+        }
+
+        function toggleProject(projectId) {
+            projectProgress[projectId] = !projectProgress[projectId];
+            saveProgress();
+            updateOverallProgress();
+        }
+
+        function toggleMilestone(milestoneId) {
+            milestoneProgress[milestoneId] = !milestoneProgress[milestoneId];
+            saveProgress();
+            updateOverallProgress();
+        }
+
+        function calculateMonthProgress(month) {
+            let completed = 0;
+            month.forEach(week => {
+                if (progress[`week-${week.week}`]) completed++;
+            });
+            return {
+                completed: completed,
+                total: month.length,
+                percentage: Math.round((completed / month.length) * 100)
+            };
+        }
+
+        function updateOverallProgress() {
+            let totalWeeks = roadmapData.length;
+            let completedWeeks = Object.values(progress).filter(v => v).length;
+            let completedProjects = Object.values(projectProgress).filter(v => v).length;
+            let completedMilestones = Object.values(milestoneProgress).filter(v => v).length;
+            
+            const overallPercentage = Math.round((completedWeeks / totalWeeks) * 100);
+            
+            document.getElementById('overall-progress').style.width = `${overallPercentage}%`;
+            document.getElementById('overall-progress').textContent = `${overallPercentage}%`;
+            document.getElementById('completed-weeks').textContent = completedWeeks;
+            document.getElementById('completed-tasks').textContent = completedWeeks;
+            document.getElementById('projects-completed').textContent = completedProjects;
+            
+            // Update month headers
+            const months = [];
+            for (let i = 0; i < roadmapData.length; i += 4) {
+                months.push(roadmapData.slice(i, i + 4));
+            }
+            
+            months.forEach((month, index) => {
+                const monthProgress = calculateMonthProgress(month);
+                const header = document.querySelector(`[onclick="toggleMonth(${index})"] .week-progress`);
+                if (header) {
+                    header.textContent = `${monthProgress.percentage}% Complete`;
+                }
+            });
+        }
+
+        function saveProgress() {
+            localStorage.setItem('fullstackRoadmapProgress', JSON.stringify(progress));
+            localStorage.setItem('fullstackProjectProgress', JSON.stringify(projectProgress));
+            localStorage.setItem('fullstackMilestoneProgress', JSON.stringify(milestoneProgress));
+            
+            const status = document.getElementById('save-status');
+            status.textContent = '✅ Progress saved!';
+            setTimeout(() => status.textContent = '', 2000);
+        }
+
+        function resetProgress() {
+            if (confirm('Are you sure you want to reset all progress? This will clear all weeks, projects, and milestones.')) {
+                progress = {};
+                projectProgress = {};
+                milestoneProgress = {};
+                localStorage.removeItem('fullstackRoadmapProgress');
+                localStorage.removeItem('fullstackProjectProgress');
+                localStorage.removeItem('fullstackMilestoneProgress');
+                createRoadmap();
+            }
+        }
+
+        // Initialize the roadmap
+        createRoadmap();
+    </script>
+</body>
+</html>
